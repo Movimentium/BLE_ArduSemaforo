@@ -13,6 +13,7 @@
 		0C08741624F1CED500A32C97 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0C08741524F1CED500A32C97 /* LaunchScreen.storyboard */; };
 		0C08741824F1CF5000A32C97 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0C08741724F1CF5000A32C97 /* Main.storyboard */; };
 		0C08741A24F1CF8C00A32C97 /* MainVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C08741924F1CF8C00A32C97 /* MainVC.swift */; };
+		0C08741C24F1D1C900A32C97 /* SemaforoBLE.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C08741B24F1D1C900A32C97 /* SemaforoBLE.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +25,7 @@
 		0C08741524F1CED500A32C97 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		0C08741724F1CF5000A32C97 /* Main.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		0C08741924F1CF8C00A32C97 /* MainVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainVC.swift; sourceTree = "<group>"; };
+		0C08741B24F1D1C900A32C97 /* SemaforoBLE.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SemaforoBLE.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +60,7 @@
 			children = (
 				0C08740124F1CE6D00A32C97 /* AppDelegate.swift */,
 				0C08740324F1CE6D00A32C97 /* SceneDelegate.swift */,
+				0C08741B24F1D1C900A32C97 /* SemaforoBLE.swift */,
 				0C08741924F1CF8C00A32C97 /* MainVC.swift */,
 				0C08741724F1CF5000A32C97 /* Main.storyboard */,
 				0C08740A24F1CE6F00A32C97 /* Assets.xcassets */,
@@ -141,6 +144,7 @@
 				0C08740224F1CE6D00A32C97 /* AppDelegate.swift in Sources */,
 				0C08741A24F1CF8C00A32C97 /* MainVC.swift in Sources */,
 				0C08740424F1CE6D00A32C97 /* SceneDelegate.swift in Sources */,
+				0C08741C24F1D1C900A32C97 /* SemaforoBLE.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

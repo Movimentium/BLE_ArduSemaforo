@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="dSS-6d-IXu">
     <device id="retina4_0" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
@@ -14,13 +14,63 @@
                     <view key="view" contentMode="scaleToFill" id="Eqy-OH-gkZ">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="lblInfo" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rfs-k6-e5M">
+                                <rect key="frame" x="16" y="527" width="288" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="KBP-UR-cSk">
+                                <rect key="frame" x="16" y="100" width="288" height="32"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="288" id="1Gw-fs-mxA"/>
+                                    <constraint firstAttribute="height" constant="31" id="3A3-A4-XJy"/>
+                                </constraints>
+                                <segments>
+                                    <segment title="ROJO"/>
+                                    <segment title="AMBAR"/>
+                                    <segment title="VERDE"/>
+                                </segments>
+                                <connections>
+                                    <action selector="onSegColorsValueChanged:" destination="dSS-6d-IXu" eventType="valueChanged" id="4N8-dy-KEm"/>
+                                </connections>
+                            </segmentedControl>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="C9r-T8-k4M">
+                                <rect key="frame" x="16" y="153" width="143" height="30"/>
+                                <color key="backgroundColor" red="0.039215686270000001" green="0.18823529410000001" blue="0.34509803919999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="0gJ-uJ-YF5"/>
+                                    <constraint firstAttribute="width" constant="143" id="bdj-FI-ylo"/>
+                                </constraints>
+                                <state key="normal" title="Enviar color">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="onBtnEnviarColor" destination="dSS-6d-IXu" eventType="touchUpInside" id="kg4-Qh-C7H"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" red="0.80784313730000001" green="0.90196078430000004" blue="0.96470588239999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="C9r-T8-k4M" firstAttribute="top" secondItem="KBP-UR-cSk" secondAttribute="bottom" constant="22" id="0fZ-Db-XUj"/>
+                            <constraint firstItem="GaB-CU-ozj" firstAttribute="trailing" secondItem="rfs-k6-e5M" secondAttribute="trailing" constant="16" id="85V-pO-66i"/>
+                            <constraint firstItem="KBP-UR-cSk" firstAttribute="centerX" secondItem="Eqy-OH-gkZ" secondAttribute="centerX" id="NGX-Pa-AYf"/>
+                            <constraint firstItem="KBP-UR-cSk" firstAttribute="top" secondItem="GaB-CU-ozj" secondAttribute="top" constant="100" id="PMG-Tm-5iE"/>
+                            <constraint firstItem="GaB-CU-ozj" firstAttribute="bottom" secondItem="rfs-k6-e5M" secondAttribute="bottom" constant="20" id="dyf-FZ-naC"/>
+                            <constraint firstItem="rfs-k6-e5M" firstAttribute="leading" secondItem="GaB-CU-ozj" secondAttribute="leading" constant="16" id="y5l-bh-EQz"/>
+                            <constraint firstItem="C9r-T8-k4M" firstAttribute="leading" secondItem="KBP-UR-cSk" secondAttribute="leading" id="zBM-21-0ca"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="GaB-CU-ozj"/>
                     </view>
+                    <connections>
+                        <outlet property="lblInfo" destination="rfs-k6-e5M" id="guq-lC-c5E"/>
+                        <outlet property="segColors" destination="KBP-UR-cSk" id="iZg-Su-AJJ"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DE8-LA-oBl" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="120" y="-291"/>
+            <point key="canvasLocation" x="120" y="-291.54929577464787"/>
         </scene>
     </scenes>
 </document>

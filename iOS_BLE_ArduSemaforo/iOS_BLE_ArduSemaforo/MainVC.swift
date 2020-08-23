@@ -8,23 +8,56 @@
 
 import UIKit
 
-class MainVC: UIViewController {
 
+class MainVC: UIViewController, SemaforoBLEDelegate {
+
+    
+    @IBOutlet weak var segColors: UISegmentedControl!
+    @IBOutlet weak var lblInfo: UILabel!
+    
+    let semaforoBLE = SemaforoBLE()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        semaforoBLE.delegate = self
+        lblInfo.text = nil
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    @IBAction func onSegColorsValueChanged(_ sender: UISegmentedControl) {
+        switch sender.selectedSegmentIndex {
+        case 0: semaforoBLE.currentColor = .rojo
+        case 1: semaforoBLE.currentColor = .amarillo
+        case 2: semaforoBLE.currentColor = .verde
+        default:
+            semaforoBLE.currentColor = .rojo
+        }
     }
-    */
+    
+    @IBAction func onBtnEnviarColor() {
+        semaforoBLE.enviarColorActual()
+    }
+    
+    
+
+    // MARK: - SemaforoBLEDelegate
+
+    func escaneando() {
+        DispatchQueue.main.async { [weak self] in
+            self?.lblInfo.text = "Escaneando..."
+        }
+    }
+    
+    func conectado() {
+        DispatchQueue.main.async { [weak self] in
+            self?.lblInfo.text = "Conectado"
+            self?.onSegColorsValueChanged((self?.segColors)!)
+        }
+    }
+    
+    func desconectado() {
+        DispatchQueue.main.async { [weak self] in
+            self?.lblInfo.text = "Desconectado!!!"
+        }
+    }
 
 }
