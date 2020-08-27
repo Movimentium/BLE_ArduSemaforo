@@ -13,28 +13,49 @@ protocol SemaforoBLEDelegate: AnyObject {
     func escaneando()
     func conectado()
     func desconectado()
+    func mensajeRecivido(_ msg:String)
 }
 
-enum ColorSemaforo {
-    case rojo
-    case amarillo
-    case verde
+enum ModoSemaforo {
+    case manual
+    case automatico
+    case test
     
     var dataToSend: Data {
-        var car = "R"
+        var str = "."
         switch self {
-        case .rojo:     car = "R"
-        case .amarillo: car = "A"
-        case .verde:    car = "V"
+        case .manual:     str = ".MODO_MANUAL"
+        case .automatico: str = ".MODO_AUTO"
+        case .test:       str = ".MODO_TEST"
         }
-        return car.data(using: String.Encoding.ascii)!
+        return str.data(using: String.Encoding.ascii)!
+    }
+}
+
+enum ColorSemaforo: Int {
+    case rojo = 0
+    case amarillo = 1
+    case verde = 2
+    
+    var dataToSend: Data {
+        var str = "."
+        switch self {
+        case .rojo:     str = ".R"
+        case .amarillo: str = ".A"
+        case .verde:    str = ".V"
+        }
+        return str.data(using: String.Encoding.ascii)!
     }
 }
 
 class SemaforoBLE: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
     
-    private var centralManager: CBCentralManager!
-    private var periferico: CBPeripheral?
+    var currentColor = ColorSemaforo.rojo
+    var modo = ModoSemaforo.manual
+    
+    var arrTiempoColor:[Float] = Array(repeating: 1, count: 3)
+    
+    private(set) var isConectado = false
     weak var delegate: SemaforoBLEDelegate?
     
     // UUIDs del DSD TECH HM-10
@@ -45,7 +66,14 @@ class SemaforoBLE: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
 
     private var setUUIDstrs: Set<String> = []
     
-    var currentColor = ColorSemaforo.rojo 
+    private var centralManager: CBCentralManager!
+    private var periferico: CBPeripheral?
+    
+    
+    override init() {
+        super.init()
+        centralManager = CBCentralManager(delegate: self, queue: nil)
+    }
     
     func enviarColorActual() {
         guard let c = char_HM10 else {
@@ -60,12 +88,32 @@ class SemaforoBLE: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
         }
     }
     
-    override init() {
-        super.init()
-        centralManager = CBCentralManager(delegate: self, queue: nil)
+    func enviarModoActual() {
+        guard let c = char_HM10 else {
+            print("char_HM10 == nil !!")
+            return
+        }
+        let data = modo.dataToSend
+        if c.properties.contains(.writeWithoutResponse) {
+            periferico?.writeValue(data, for: c, type: .withoutResponse)
+        } else {
+            periferico?.writeValue(data, for: c, type: .withResponse)
+        }
     }
     
-    
+    func enviarTiempoParaColor(_ color:ColorSemaforo) {
+        print("\(#function) t: \(arrTiempoColor[color.rawValue])")
+//        guard let c = char_HM10 else {
+//            print("char_HM10 == nil !!")
+//            return
+//        }
+//        let data = modo.dataToSend
+//        if c.properties.contains(.writeWithoutResponse) {
+//            periferico?.writeValue(data, for: c, type: .withoutResponse)
+//        } else {
+//            periferico?.writeValue(data, for: c, type: .withResponse)
+//        }
+    }
     
     // MARK: - CBCentralManagerDelegate
     
@@ -103,6 +151,7 @@ class SemaforoBLE: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
         print("-----------------------------------------------------")
         print("\(#function)")
         print("connected to \(peripheral.name ?? "SinNombre")")
+        isConectado = true
         delegate?.conectado()
         peripheral.delegate = self
         peripheral.discoverServices(nil)
@@ -113,6 +162,7 @@ class SemaforoBLE: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
     {
         print("-----------------------------------------------------")
         print("\(#function)")
+        isConectado = false
         centralManager.scanForPeripherals(withServices: nil, options: nil)
         delegate?.escaneando()
     }
@@ -149,12 +199,12 @@ class SemaforoBLE: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
             if c.uuid == charUUID_HM10 {
                 char_HM10 = c
                 peripheral.setNotifyValue(true, for: c)
-                let data = "HOLA ARDUINO".data(using: String.Encoding.utf8)!
-                if c.properties.contains(.writeWithoutResponse) {
-                    peripheral.writeValue(data, for: c, type: .withoutResponse)
-                } else {
-                    peripheral.writeValue(data, for: c, type: .withResponse)
-                }
+//                let data = "HOLA ARDUINO".data(using: String.Encoding.utf8)!
+//                if c.properties.contains(.writeWithoutResponse) {
+//                    peripheral.writeValue(data, for: c, type: .withoutResponse)
+//                } else {
+//                    peripheral.writeValue(data, for: c, type: .withResponse)
+//                }
             }
         }
     }
@@ -179,8 +229,9 @@ class SemaforoBLE: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
         //        let b = characteristic.value?.description
         //        print(Character(UnicodeScalar(b)))
         let data = characteristic.value!
-        print(String(data: data, encoding: .ascii)!) //
-        
+        let mensaje = String(data: data, encoding: .ascii)!
+        print(mensaje)
+        delegate?.mensajeRecivido(mensaje)
         
     }
     
