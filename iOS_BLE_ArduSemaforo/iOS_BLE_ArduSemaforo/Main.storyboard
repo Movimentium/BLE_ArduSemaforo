@@ -67,8 +67,8 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="22" translatesAutoresizingMaskIntoConstraints="NO" id="rGM-g3-PcK">
-                                <rect key="frame" x="16" y="191" width="288" height="176.5"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="rGM-g3-PcK">
+                                <rect key="frame" x="16" y="191" width="288" height="196"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Modo Automático" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="C6d-Wy-AOT">
                                         <rect key="frame" x="0.0" y="0.0" width="288" height="20.5"/>
@@ -76,22 +76,40 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="lblR" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xmn-BN-9HJ">
+                                        <rect key="frame" x="0.0" y="24.5" width="288" height="20.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                     <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="4" minValue="0.0" maxValue="4" continuous="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VnT-UB-o2l">
-                                        <rect key="frame" x="-2" y="42.5" width="292" height="31"/>
+                                        <rect key="frame" x="-2" y="49" width="292" height="31"/>
                                         <color key="thumbTintColor" systemColor="systemPinkColor" red="1" green="0.1764705882" blue="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <connections>
                                             <action selector="onSliderColorValueChanged:" destination="dSS-6d-IXu" eventType="valueChanged" id="Ccl-h6-XvG"/>
                                         </connections>
                                     </slider>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="lblA" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ffd-FE-lHU">
+                                        <rect key="frame" x="0.0" y="83" width="288" height="20.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                     <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="4" minValue="0.0" maxValue="4" continuous="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Loa-ZF-kzV">
-                                        <rect key="frame" x="-2" y="94.5" width="292" height="31"/>
+                                        <rect key="frame" x="-2" y="107.5" width="292" height="31"/>
                                         <color key="thumbTintColor" systemColor="systemYellowColor" red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <connections>
                                             <action selector="onSliderColorValueChanged:" destination="dSS-6d-IXu" eventType="valueChanged" id="MJk-al-kcN"/>
                                         </connections>
                                     </slider>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="lblV" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bZ8-Sf-3WZ">
+                                        <rect key="frame" x="0.0" y="141.5" width="288" height="20.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                     <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="4" minValue="0.0" maxValue="4" continuous="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iDa-oA-2fi">
-                                        <rect key="frame" x="-2" y="146.5" width="292" height="31"/>
+                                        <rect key="frame" x="-2" y="166" width="292" height="31"/>
                                         <color key="thumbTintColor" systemColor="systemGreenColor" red="0.20392156859999999" green="0.78039215689999997" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <connections>
                                             <action selector="onSliderColorValueChanged:" destination="dSS-6d-IXu" eventType="valueChanged" id="Uhv-vb-hGa"/>
@@ -128,13 +146,19 @@
                         <viewLayoutGuide key="safeArea" id="GaB-CU-ozj"/>
                     </view>
                     <connections>
+                        <outlet property="lblA" destination="Ffd-FE-lHU" id="x70-Cq-2Bl"/>
                         <outlet property="lblInfo" destination="rfs-k6-e5M" id="guq-lC-c5E"/>
                         <outlet property="lblInfoArdu" destination="BMQ-pz-ztl" id="scT-mK-QqY"/>
+                        <outlet property="lblR" destination="Xmn-BN-9HJ" id="8AP-hN-JGa"/>
+                        <outlet property="lblV" destination="bZ8-Sf-3WZ" id="XZQ-pW-DoP"/>
                         <outlet property="segColors" destination="KBP-UR-cSk" id="iZg-Su-AJJ"/>
                         <outlet property="segModo" destination="QdI-5a-Dkg" id="fAf-zS-W4L"/>
                         <outlet property="sliderAmarillo" destination="Loa-ZF-kzV" id="cQ1-82-xY2"/>
                         <outlet property="sliderRojo" destination="VnT-UB-o2l" id="nNS-s9-RUm"/>
                         <outlet property="sliderVerde" destination="iDa-oA-2fi" id="k1W-Gy-gny"/>
+                        <outletCollection property="arrLblsColors" destination="Xmn-BN-9HJ" collectionClass="NSMutableArray" id="qcr-ml-kuy"/>
+                        <outletCollection property="arrLblsColors" destination="Ffd-FE-lHU" collectionClass="NSMutableArray" id="46J-Cf-yx3"/>
+                        <outletCollection property="arrLblsColors" destination="bZ8-Sf-3WZ" collectionClass="NSMutableArray" id="E45-QR-Ufz"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DE8-LA-oBl" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

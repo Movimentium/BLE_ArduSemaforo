@@ -14,6 +14,7 @@ protocol SemaforoBLEDelegate: AnyObject {
     func conectado()
     func desconectado()
     func mensajeRecivido(_ msg:String)
+    func strMilisegundos(strMiliSecs:String, paraColor color:ColorSemaforo)
 }
 
 enum ModoSemaforo {
@@ -103,16 +104,42 @@ class SemaforoBLE: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
     
     func enviarTiempoParaColor(_ color:ColorSemaforo) {
         print("\(#function) t: \(arrTiempoColor[color.rawValue])")
-//        guard let c = char_HM10 else {
-//            print("char_HM10 == nil !!")
-//            return
-//        }
-//        let data = modo.dataToSend
-//        if c.properties.contains(.writeWithoutResponse) {
-//            periferico?.writeValue(data, for: c, type: .withoutResponse)
-//        } else {
-//            periferico?.writeValue(data, for: c, type: .withResponse)
-//        }
+        guard let c = char_HM10 else {
+            print("char_HM10 == nil !!")
+            return
+        }
+        let v = arrTiempoColor[color.rawValue]
+        let strMiliSegs = strMilisegundosPara(valor: v)
+        delegate?.strMilisegundos(strMiliSecs: strMiliSegs, paraColor: color)
+        var strToSend = "";
+        switch color {
+        case .rojo:      strToSend = ".TIME_R\(strMiliSegs)"
+        case .amarillo:  strToSend = ".TIME_A\(strMiliSegs)"
+        case .verde:     strToSend = ".TIME_V\(strMiliSegs)"
+        }
+        print("\(#function) strToSend: \(strToSend)")
+        let data = strToSend.data(using: String.Encoding.ascii)!
+        if c.properties.contains(.writeWithoutResponse) {
+            periferico?.writeValue(data, for: c, type: .withoutResponse)
+        } else {
+            periferico?.writeValue(data, for: c, type: .withResponse)
+        }
+    }
+    
+    // MARK: - TODO Optimizar
+    private func strMilisegundosPara(valor:Float) -> String {
+        // 0...4  Float
+        let v = valor * 1000;
+        if v < 800 {         return "0250"
+        } else if v < 1000 {  return "0500"
+        } else if v < 1500 {  return "1000"
+        } else if v < 2000 {  return "1500"
+        } else if v < 2500 {  return "2000"
+        } else if v < 3000 {  return "2500"
+        } else if v < 3500 {  return "3000"
+        } else if v < 3700 {  return "3500"
+        } else {              return "4000"
+        }
     }
     
     // MARK: - CBCentralManagerDelegate

@@ -10,13 +10,20 @@ import UIKit
 
 
 class MainVC: UIViewController, SemaforoBLEDelegate {
+  
 
     
 
     @IBOutlet weak var segModo: UISegmentedControl!
     @IBOutlet weak var segColors: UISegmentedControl!
+    
     @IBOutlet weak var lblInfo: UILabel!
     @IBOutlet weak var lblInfoArdu: UILabel!
+    @IBOutlet weak var lblR: UILabel!
+    @IBOutlet weak var lblA: UILabel!
+    @IBOutlet weak var lblV: UILabel!
+    @IBOutlet var arrLblsColors: [UILabel]!
+    
     @IBOutlet weak var sliderRojo: UISlider!
     @IBOutlet weak var sliderAmarillo: UISlider!
     @IBOutlet weak var sliderVerde: UISlider!
@@ -30,6 +37,7 @@ class MainVC: UIViewController, SemaforoBLEDelegate {
         semaforoBLE.delegate = self
         lblInfo.text = nil
         lblInfoArdu.text = nil
+        arrLblsColors.forEach { $0.text = "4000 ms" }
     }
     
     @IBAction func onSegModoValueChanged(_ sender: UISegmentedControl) {
@@ -108,4 +116,11 @@ class MainVC: UIViewController, SemaforoBLEDelegate {
             self?.lblInfoArdu.text = msg
         }
     }
+    
+    func strMilisegundos(strMiliSecs: String, paraColor color: ColorSemaforo) {
+        DispatchQueue.main.async { [weak self] in
+            self?.arrLblsColors[color.rawValue].text = "\(strMiliSecs) ms" 
+        }
+    }
+      
 }
