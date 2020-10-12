@@ -1,5 +1,5 @@
 //
-//  MainVC.swift
+//  MainMacVC.swift
 //  iOS_BLE_ArduSemaforo
 //
 //  Created by Miguel on 23/08/2020.

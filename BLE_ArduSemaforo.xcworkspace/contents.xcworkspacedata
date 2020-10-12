@@ -2,6 +2,15 @@
 <Workspace
    version = "1.0">
    <FileRef
+      location = "group:SemaforoBLE_01.png">
+   </FileRef>
+   <FileRef
+      location = "group:SemaforoBLE_02.jpeg">
+   </FileRef>
+   <FileRef
+      location = "group:macOS_BLE_ArduSemaforo/macOS_BLE_ArduSemaforo.xcodeproj">
+   </FileRef>
+   <FileRef
       location = "group:iOS_BLE_ArduSemaforo/iOS_BLE_ArduSemaforo.xcodeproj">
    </FileRef>
 </Workspace>
